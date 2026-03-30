@@ -1,0 +1,44 @@
+@layer base {
+
+    /* For Chrome, Safari, and Edge */
+    ::-webkit-scrollbar {
+        width: 8px;
+        /* Slimmer for a modern look */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #000000;
+        /* Matches your background */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #262626;
+        /* Subtle dark grey thumb */
+        border-radius: 100vh;
+        border: 2px solid #000000;
+        /* Creates a "floating" effect */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #404040;
+        /* Lighter on hover */
+    }
+
+    /* For Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #262626 #000000;
+    }
+
+    /* Prevent horizontal scroll issues */
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+/* Smooth Scrolling for the whole site */
+html {
+    scroll-behavior: smooth;
+}
