@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useSEO from '../../hooks/useSEO';
 
 const Dashboard = () => {
@@ -314,6 +314,12 @@ const Dashboard = () => {
                                 + Add Product
                             </button>
                         )}
+                        <Link
+                            to="/"
+                            className="border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 font-bold px-6 py-3.5 rounded-xl text-sm transition-all active:scale-[0.98] w-full md:w-auto text-center inline-flex items-center justify-center gap-1.5"
+                        >
+                            <i className="fa-solid fa-arrow-left text-xs"></i> View Site
+                        </Link>
                         <button
                             onClick={handleLogout}
                             className="border border-white/10 text-gray-400 hover:text-white hover:bg-white/5 font-bold px-6 py-3.5 rounded-xl text-sm transition-all active:scale-[0.98] w-full md:w-auto text-center"

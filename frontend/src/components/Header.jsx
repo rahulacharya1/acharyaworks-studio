@@ -10,7 +10,13 @@ const Header = () => {
         { name: 'Products', path: '/products' },
         { name: 'Services', path: '/services' },
         { name: 'Contact', path: '/contact' }
-    ]
+    ];
+
+    // Conditionally display Admin Dashboard link if logged in
+    const hasAdminToken = localStorage.getItem('admin_token');
+    if (hasAdminToken) {
+        navItems.push({ name: 'Admin Dashboard', path: '/admin' });
+    }
 
     // Helper to check active state
     const isActive = (path) => location.pathname === path;
