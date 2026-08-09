@@ -29,7 +29,7 @@ const Login = () => {
 
         const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:8000' 
-            : '';
+            : 'https://api.acharyaworks.in';
 
         fetch(`${apiBase}/api/admin/login/`, {
             method: 'POST',
@@ -60,10 +60,10 @@ const Login = () => {
     return (
         <div className="bg-black min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-size-[40px_40px]"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-            <div className="relative z-10 w-full max-w-md bg-[#0A0A0A] border border-white/10 p-10 rounded-[2rem] shadow-2xl">
+            <div className="relative z-10 w-full max-w-md bg-[#0A0A0A] border border-white/10 p-10 rounded-4xl shadow-2xl">
                 <div className="text-center mb-10">
                     <h1 className="text-3xl font-bold text-white tracking-tight mb-2">
                         Acharya<span className="text-cyan-400">Works</span>

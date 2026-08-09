@@ -14,7 +14,7 @@ const Services = () => {
     useEffect(() => {
         const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:8000' 
-            : '';
+            : 'https://api.acharyaworks.in';
 
         fetch(`${apiBase}/api/services/`)
             .then(res => {
@@ -45,7 +45,7 @@ const Services = () => {
 
             {/* 🔥 Page Header */}
             <section className="py-24 relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-75 bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10 text-center">
                     <h1 className="text-5xl md:text-8xl font-bold text-white tracking-tighter mb-8 animate-fade-in">
                         Our <span className="text-gray-500 italic font-serif">Services</span>
@@ -65,7 +65,7 @@ const Services = () => {
                                 key={service.title} 
                                 className={`relative group p-1 rounded-[2.5rem] transition-all duration-500 ${
                                     service.is_featured 
-                                    ? 'bg-gradient-to-b from-cyan-500/20 to-transparent' 
+                                    ? 'bg-linear-to-b from-cyan-500/20 to-transparent' 
                                     : 'bg-white/5'
                                 }`}
                             >
@@ -89,10 +89,10 @@ const Services = () => {
                                     <p className="text-gray-400 text-sm mb-8 leading-relaxed">
                                         {service.desc}
                                     </p>
-                                    <ul className="space-y-4 mb-10 flex-grow">
+                                    <ul className="space-y-4 mb-10 grow">
                                         {service.features.map((feature) => (
                                             <li key={feature} className="flex items-start text-sm text-gray-300">
-                                                <svg className="w-4 h-4 mr-3 text-cyan-500/80 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                                <svg className="w-4 h-4 mr-3 text-cyan-500/80 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                 </svg>
                                                 {feature}
@@ -117,25 +117,25 @@ const Services = () => {
             </section>
 
             {/* 🔥 Why Us / Process */}
-            <section className="py-32 border-t border-white/5 bg-white/[0.01]">
+            <section className="py-32 border-t border-white/5 bg-white/1">
                 <div className="max-w-7xl mx-auto px-6 lg:px-10 text-center">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-20 tracking-tight">The AcharyaWorks Process</h2>
                     <div className="grid md:grid-cols-3 gap-16 relative">
                         {/* Process Step 1 */}
                         <div className="relative text-center">
-                            <div className="text-8xl font-bold text-white/[0.03] absolute -top-12 left-1/2 -translate-x-1/2 select-none">01</div>
+                            <div className="text-8xl font-bold text-white/3 absolute -top-12 left-1/2 -translate-x-1/2 select-none">01</div>
                             <h3 className="text-xl font-bold text-white mb-4 relative z-10">Discovery</h3>
                             <p className="text-gray-500 text-sm leading-relaxed">We analyze your requirements and map out the system architecture.</p>
                         </div>
                         {/* Process Step 2 */}
                         <div className="relative text-center">
-                            <div className="text-8xl font-bold text-white/[0.03] absolute -top-12 left-1/2 -translate-x-1/2 select-none">02</div>
+                            <div className="text-8xl font-bold text-white/3 absolute -top-12 left-1/2 -translate-x-1/2 select-none">02</div>
                             <h3 className="text-xl font-bold text-white mb-4 relative z-10">Development</h3>
                             <p className="text-gray-500 text-sm leading-relaxed">Agile coding using React & Django with regular updates on progress.</p>
                         </div>
                         {/* Process Step 3 */}
                         <div className="relative text-center">
-                            <div className="text-8xl font-bold text-white/[0.03] absolute -top-12 left-1/2 -translate-x-1/2 select-none">03</div>
+                            <div className="text-8xl font-bold text-white/3 absolute -top-12 left-1/2 -translate-x-1/2 select-none">03</div>
                             <h3 className="text-xl font-bold text-white mb-4 relative z-10">Deployment</h3>
                             <p className="text-gray-500 text-sm leading-relaxed">Launch on your custom domain with optimized server configurations.</p>
                         </div>

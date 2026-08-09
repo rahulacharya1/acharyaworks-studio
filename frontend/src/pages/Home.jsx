@@ -18,7 +18,7 @@ const Home = () => {
     useEffect(() => {
         const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
             ? 'http://localhost:8000' 
-            : '';
+            : 'https://api.acharyaworks.in';
             
         fetch(`${apiBase}/api/products/`)
             .then(res => res.json())
@@ -82,7 +82,7 @@ const Home = () => {
             </section>
 
             {/* 🔥 Values Section (What We Do) */}
-            <section className="py-32 bg-white/[0.02] border-y border-white/5">
+            <section className="py-32 bg-white/2 border-y border-white/5">
                 <div className="max-w-7xl mx-auto px-6 lg:px-10">
                     <div className="grid md:grid-cols-3 gap-16">
                         <div className="space-y-4">

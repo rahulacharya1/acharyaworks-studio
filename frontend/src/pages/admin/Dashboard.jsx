@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useSEO from '../../hooks/useSEO';
 
@@ -43,7 +43,7 @@ const Dashboard = () => {
 
     const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
         ? 'http://localhost:8000' 
-        : '';
+        : 'https://api.acharyaworks.in';
 
     // Check auth
     useEffect(() => {
@@ -52,10 +52,15 @@ const Dashboard = () => {
         }
     }, [token, navigate]);
 
+    const handleLogout = useCallback(() => {
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
+        navigate('/admin/login');
+    }, [navigate]);
+
     // Fetch lists
-    const fetchData = () => {
+    const fetchData = useCallback(() => {
         if (!token) return;
-        setIsLoading(true);
         
         const headers = {
             'Authorization': `Token ${token}`,
@@ -89,17 +94,11 @@ const Dashboard = () => {
                 console.error("Fetch dashboard error:", err);
                 setIsLoading(false);
             });
-    };
+    }, [apiBase, handleLogout, token]);
 
     useEffect(() => {
         fetchData();
-    }, [token]);
-
-    const handleLogout = () => {
-        localStorage.removeItem('admin_token');
-        localStorage.removeItem('admin_user');
-        navigate('/admin/login');
-    };
+    }, [fetchData]);
 
     const triggerAlert = (type, text) => {
         setStatusMessage({ type, text });
@@ -284,7 +283,7 @@ const Dashboard = () => {
     return (
         <div className="bg-[#050505] min-h-screen text-white pt-24 pb-20 relative overflow-hidden">
             {/* Background grids */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-size-[40px_40px]"></div>
 
             <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
                 {/* Header row */}
@@ -402,7 +401,7 @@ const Dashboard = () => {
 
                                 <div className="grid md:grid-cols-2 gap-10">
                                     {/* Quick list products */}
-                                    <div className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8">
+                                    <div className="bg-[#0A0A0A] border border-white/5 rounded-4xl p-8">
                                         <h3 className="text-lg font-bold mb-6">Recent Products</h3>
                                         {products.length === 0 ? (
                                             <p className="text-gray-600 text-sm">No products in database.</p>
@@ -424,7 +423,7 @@ const Dashboard = () => {
                                     </div>
 
                                     {/* Quick list messages */}
-                                    <div className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8">
+                                    <div className="bg-[#0A0A0A] border border-white/5 rounded-4xl p-8">
                                         <h3 className="text-lg font-bold mb-6">Latest Enquiries</h3>
                                         {messages.length === 0 ? (
                                             <p className="text-gray-600 text-sm">No messages in inbox.</p>
@@ -448,14 +447,14 @@ const Dashboard = () => {
 
                         {/* Tab 2: Products CRUD Management */}
                         {activeTab === 'products' && (
-                            <div className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] overflow-hidden">
+                            <div className="bg-[#0A0A0A] border border-white/5 rounded-4xl overflow-hidden">
                                 {products.length === 0 ? (
                                     <div className="p-10 text-center text-gray-500 text-sm">No products found. Add your first product using the button above!</div>
                                 ) : (
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
                                             <thead>
-                                                <tr className="border-b border-white/5 bg-white/[0.01] text-xs font-bold uppercase tracking-widest text-gray-500">
+                                                <tr className="border-b border-white/5 bg-white/1 text-xs font-bold uppercase tracking-widest text-gray-500">
                                                     <th className="py-6 px-8">Sort Order</th>
                                                     <th className="py-6 px-8">Product Name</th>
                                                     <th className="py-6 px-8">Status</th>
@@ -465,7 +464,7 @@ const Dashboard = () => {
                                             </thead>
                                             <tbody className="divide-y divide-white/5">
                                                 {products.map(p => (
-                                                    <tr key={p.id} className="hover:bg-white/[0.01] transition-colors">
+                                                    <tr key={p.id} className="hover:bg-white/1 transition-colors">
                                                         <td className="py-5 px-8 font-mono text-sm text-cyan-400">{p.order}</td>
                                                         <td className="py-5 px-8">
                                                             <div className="font-bold text-sm text-white">{p.name}</div>
@@ -492,7 +491,7 @@ const Dashboard = () => {
                                                         <td className="py-5 px-8 text-right">
                                                             <div className="flex justify-end gap-3">
                                                                 <button
-                                                                    onClick={() => openEditModal(p)}
+                                                                    onClick={() => openEditProductModal(p)}
                                                                     className="text-xs font-bold text-gray-400 hover:text-white bg-white/5 px-3.5 py-2 rounded-lg border border-white/5 hover:border-white/10 transition-colors"
                                                                 >
                                                                     Edit
@@ -516,14 +515,14 @@ const Dashboard = () => {
 
                         {/* Tab 2.5: Services CRUD Management */}
                         {activeTab === 'services' && (
-                            <div className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] overflow-hidden">
+                            <div className="bg-[#0A0A0A] border border-white/5 rounded-4xl overflow-hidden">
                                 {services.length === 0 ? (
                                     <div className="p-10 text-center text-gray-500 text-sm">No services found. Add your first service using the button above!</div>
                                 ) : (
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left border-collapse">
                                             <thead>
-                                                <tr className="border-b border-white/5 bg-white/[0.01] text-xs font-bold uppercase tracking-widest text-gray-500">
+                                                <tr className="border-b border-white/5 bg-white/1 text-xs font-bold uppercase tracking-widest text-gray-500">
                                                     <th className="py-6 px-8">Sort Order</th>
                                                     <th className="py-6 px-8">Service Title</th>
                                                     <th className="py-6 px-8">Price Package</th>
@@ -533,7 +532,7 @@ const Dashboard = () => {
                                             </thead>
                                             <tbody className="divide-y divide-white/5">
                                                 {services.map(s => (
-                                                    <tr key={s.id} className="hover:bg-white/[0.01] transition-colors">
+                                                    <tr key={s.id} className="hover:bg-white/1 transition-colors">
                                                         <td className="py-5 px-8 font-mono text-sm text-cyan-400">{s.order}</td>
                                                         <td className="py-5 px-8">
                                                             <div className="font-bold text-sm text-white">{s.title}</div>
@@ -578,10 +577,10 @@ const Dashboard = () => {
                         {activeTab === 'messages' && (
                             <div className="space-y-6">
                                 {messages.length === 0 ? (
-                                    <div className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-10 text-center text-gray-500 text-sm">Your inbox is empty.</div>
+                                    <div className="bg-[#0A0A0A] border border-white/5 rounded-4xl p-10 text-center text-gray-500 text-sm">Your inbox is empty.</div>
                                 ) : (
                                     messages.map(m => (
-                                        <div key={m.id} className="bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-8 hover:border-white/10 transition-all duration-300">
+                                        <div key={m.id} className="bg-[#0A0A0A] border border-white/5 rounded-4xl p-8 hover:border-white/10 transition-all duration-300">
                                             <div className="flex justify-between items-start mb-6 gap-4">
                                                 <div>
                                                     <h3 className="font-bold text-lg text-white mb-1">{m.name}</h3>
@@ -599,7 +598,7 @@ const Dashboard = () => {
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div className="p-6 bg-white/[0.02] border border-white/5 rounded-xl text-sm text-gray-300 leading-relaxed whitespace-pre-wrap font-light">
+                                            <div className="p-6 bg-white/2 border border-white/5 rounded-xl text-sm text-gray-300 leading-relaxed whitespace-pre-wrap font-light">
                                                 {m.message}
                                             </div>
                                         </div>

@@ -3,9 +3,9 @@ const ProductCard = ({ name, desc, description, features = [], link = "#" }) => 
     return (
         <div className="group relative">
             {/* 🔥 Hover Glow Effect (Background) */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-gray-500 to-white rounded-[2rem] opacity-0 group-hover:opacity-10 transition duration-500 blur"></div>
+            <div className="absolute -inset-0.5 bg-linear-to-r from-gray-500 to-white rounded-4xl opacity-0 group-hover:opacity-10 transition duration-500 blur"></div>
             
-            <div className="relative h-full bg-[#0A0A0A] border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between transition-all duration-500 group-hover:border-white/20 group-hover:bg-[#0F0F0F]">
+            <div className="relative h-full bg-[#0A0A0A] border border-white/10 rounded-4xl p-8 flex flex-col justify-between transition-all duration-500 group-hover:border-white/20 group-hover:bg-[#0F0F0F]">
                 
                 <div>
                     {/* Top Row: Icon & Status */}
