@@ -6,6 +6,7 @@ import Services from './pages/Services'
 import Contact from './pages/Contact'
 import Login from './pages/admin/Login'
 import Dashboard from './pages/admin/Dashboard'
+import NotFound from './pages/NotFound'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/admin/login" element={<Login />} />
                 <Route path="/admin" element={<Dashboard />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
 
             {!isAdminRoute && <Footer />}
