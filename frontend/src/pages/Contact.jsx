@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
-import { Helmet } from 'react-helmet';
+import useSEO from '../hooks/useSEO';
 
 const Contact = () => {
+    useSEO({
+        title: "Contact AcharyaWorks | Start Your Project Today",
+        description: "Ready to build your next digital product? Get in touch with AcharyaWorks. We specialize in React, Django, and custom full-stack solutions."
+    });
     const form = useRef();
     const [isSending, setIsSending] = useState(false);
     const [status, setStatus] = useState({ type: '', message: '' });
@@ -11,17 +14,37 @@ const Contact = () => {
         e.preventDefault();
         setIsSending(true);
 
-        emailjs.sendForm(
-            'service_g4tzdmo', 
-            'template_48c1c6t', 
-            form.current, 
-            'snvKLoLsnbQhYYZqB'
-        )
-        .then((result) => {
-            setStatus({ type: 'success', message: 'Message sent successfully! We will get back to you soon.' });
-            form.current.reset();
-        }, (error) => {
-            setStatus({ type: 'error', message: 'Something went wrong. Please try WhatsApp instead.' });
+        const formData = new FormData(form.current);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message')
+        };
+
+        const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:8000' 
+            : '';
+
+        fetch(`${apiBase}/api/contact/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(async (res) => {
+            if (res.ok) {
+                setStatus({ type: 'success', message: 'Message sent successfully! We will get back to you soon.' });
+                form.current.reset();
+            } else {
+                const errData = await res.json().catch(() => ({}));
+                const errMsg = errData.email ? "Please provide a valid email address." : "Something went wrong. Please try WhatsApp instead.";
+                setStatus({ type: 'error', message: errMsg });
+            }
+        })
+        .catch((error) => {
+            console.error("API error:", error);
+            setStatus({ type: 'error', message: 'Network error. Please try WhatsApp instead.' });
         })
         .finally(() => {
             setIsSending(false);
@@ -32,10 +55,7 @@ const Contact = () => {
 
     return (
         <div className="bg-black min-h-screen pt-20">
-            <Helmet>
-                <title>Contact AcharyaWorks | Start Your Project Today</title>
-                <meta name="description" content="Ready to build your next digital product? Get in touch with AcharyaWorks." />
-            </Helmet>
+
 
             <section className="py-24 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10 text-center">

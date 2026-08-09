@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local Environment
+.env
+.env.local
+.env.*.local
+
+# Python Virtual Environments & DB
+backend/server/
+venv/
+.venv/
+__pycache__/
+*.pyc
+db.sqlite3

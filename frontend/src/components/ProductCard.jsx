@@ -1,4 +1,5 @@
-const ProductCard = ({ name, desc, features = [], link = "#" }) => {
+const ProductCard = ({ name, desc, description, features = [], link = "#" }) => {
+    const displayDesc = desc || description;
     return (
         <div className="group relative">
             {/* 🔥 Hover Glow Effect (Background) */}
@@ -16,13 +17,13 @@ const ProductCard = ({ name, desc, features = [], link = "#" }) => {
                             Product
                         </span>
                     </div>
-
+ 
                     {/* Content */}
                     <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">
                         {name}
                     </h3>
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                        {desc}
+                        {displayDesc}
                     </p>
 
                     {/* Feature Tags (Small & Clean) */}

@@ -1,35 +1,47 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { useState, useEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 
 const Services = () => {
-    const services = [
-        {
-            title: 'Web Development',
-            desc: 'High-performance static and dynamic websites tailored for your brand.',
-            price: '₹2,999',
-            features: ['Responsive UI/UX', 'Tailwind CSS Styling', 'SEO Optimization', '10-Day Delivery']
-        },
-        {
-            title: 'Django Backend',
-            desc: 'Robust server-side logic with secure APIs and custom admin panels.',
-            price: '₹5,999',
-            features: ['Secure JWT Auth', 'Custom Admin Dashboard', 'Database Design', 'REST APIs']
-        },
-        {
-            title: 'Custom Solutions',
-            desc: 'Full-scale platforms for schools, NGOs, and growing startups.',
-            price: '₹9,999+',
-            features: ['End-to-End Development', 'Scalable Cloud Architecture', 'Priority Support', 'Custom Integrations']
-        }
-    ];
+    useSEO({
+        title: "Web Development Services | Affordable Packages from ₹2,999",
+        description: "Professional web development and Django backend services starting at ₹2,999. Scalable architecture and fast delivery by AcharyaWorks.",
+        keywords: "hire web developer, django development price, affordable website bihar, custom software services"
+    });
+
+    const [services, setServices] = useState([]);
+
+    useEffect(() => {
+        const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:8000' 
+            : '';
+
+        fetch(`${apiBase}/api/services/`)
+            .then(res => {
+                if (!res.ok) throw new Error("API error response");
+                return res.json();
+            })
+            .then(data => {
+                if (data && data.length > 0) {
+                    // Normalize fields if backend uses different casing
+                    const formatted = data.map(item => ({
+                        title: item.title,
+                        desc: item.desc,
+                        price: item.price,
+                        features: item.features,
+                        is_featured: item.is_featured
+                    }));
+                    setServices(formatted);
+                }
+            })
+            .catch(err => {
+                console.error("Failed to load services data from API:", err);
+            });
+    }, []);
 
     return (
         <div className="bg-black min-h-screen pt-20">
-            <Helmet>
-                <title>Web Development Services | Affordable Packages from ₹2,999</title>
-                <meta name="description" content="Professional web development and Django backend services starting at ₹2,999. Scalable architecture and fast delivery by AcharyaWorks." />
-                <meta name="keywords" content="hire web developer, django development price, affordable website bihar, custom software services" />
-            </Helmet>
+
 
             {/* 🔥 Page Header */}
             <section className="py-24 relative overflow-hidden">
@@ -48,17 +60,28 @@ const Services = () => {
             <section className="pb-32">
                 <div className="max-w-7xl mx-auto px-6 lg:px-10">
                     <div className="grid md:grid-cols-3 gap-8">
-                        {services.map((service, index) => (
+                        {services.map((service) => (
                             <div 
                                 key={service.title} 
                                 className={`relative group p-1 rounded-[2.5rem] transition-all duration-500 ${
-                                    index === 1 ? 'bg-gradient-to-b from-white/20 to-transparent' : 'bg-white/5'
+                                    service.is_featured 
+                                    ? 'bg-gradient-to-b from-cyan-500/20 to-transparent' 
+                                    : 'bg-white/5'
                                 }`}
                             >
-                                <div className="bg-[#0A0A0A] rounded-[2.4rem] p-10 h-full flex flex-col border border-white/5 group-hover:border-white/20 transition-colors">
-                                    <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-2">
-                                        {service.title}
-                                    </h3>
+                                <div className={`bg-[#0A0A0A] rounded-[2.4rem] p-10 h-full flex flex-col border border-white/5 transition-colors ${
+                                    service.is_featured ? 'border-cyan-500/20 group-hover:border-cyan-500/30' : 'group-hover:border-white/15'
+                                }`}>
+                                    <div className="flex justify-between items-center mb-6">
+                                        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500">
+                                            {service.title}
+                                        </h3>
+                                        {service.is_featured && (
+                                            <span className="text-[9px] uppercase tracking-widest bg-cyan-950/40 text-cyan-400 border border-cyan-800/30 px-2.5 py-1 rounded-md font-semibold">
+                                                Best Value
+                                            </span>
+                                        )}
+                                    </div>
                                     <div className="flex items-baseline gap-1 mb-6">
                                         <span className="text-4xl font-bold text-white">{service.price}</span>
                                         <span className="text-gray-600 text-sm">/ project</span>
@@ -68,9 +91,9 @@ const Services = () => {
                                     </p>
                                     <ul className="space-y-4 mb-10 flex-grow">
                                         {service.features.map((feature) => (
-                                            <li key={feature} className="flex items-center text-sm text-gray-300">
-                                                <svg className="w-4 h-4 text-white mr-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                            <li key={feature} className="flex items-start text-sm text-gray-300">
+                                                <svg className="w-4 h-4 mr-3 text-cyan-500/80 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                                                 </svg>
                                                 {feature}
                                             </li>
@@ -79,7 +102,7 @@ const Services = () => {
                                     <Link
                                         to="/contact"
                                         className={`w-full py-4 rounded-xl font-bold text-center transition-all ${
-                                            index === 1 
+                                            service.is_featured 
                                             ? 'bg-white text-black hover:bg-gray-200' 
                                             : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'
                                         }`}

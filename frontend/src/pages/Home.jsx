@@ -1,38 +1,42 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
 import CTA from '../components/CTA';
-import { Helmet } from 'react-helmet';
+import useSEO from '../hooks/useSEO';
 
 const Home = () => {
-    const featuredProducts = [
-        {
-            name: 'TechlancePrep',
-            desc: 'A comprehensive interview preparation platform built for aspiring developers to master coding rounds.',
-            features: ['React', 'Django', 'Preparation'],
-            link: '/products'
-        },
-        {
-            name: 'EduMarks',
-            desc: 'A streamlined school result management system designed to eliminate manual data entry errors.',
-            features: ['Automation', 'Management', 'Education'],
-            link: '/products'
-        },
-        {
-            name: 'BiharSeva',
-            desc: 'A volunteer-driven platform connecting citizens for community cleanliness and social impact.',
-            features: ['Social Impact', 'Community', 'Bihar'],
-            link: '/products'
-        }
-    ];
+    useSEO({
+        title: "AcharyaWorks | Digital Products with Real Impact",
+        description: "AcharyaWorks builds scalable web apps and custom Django solutions. From Bihar to the world, we craft digital products like TechlancePrep and BiharSeva.",
+        keywords: "AcharyaWorks, web development Bihar, digital product studio, software agency Purnea, edtech solutions, techlanceprep, edumarks, biharseva, coding interview prep, school result system, volunteer platform"
+    });
+
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const apiBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+            ? 'http://localhost:8000' 
+            : '';
+            
+        fetch(`${apiBase}/api/products/`)
+            .then(res => res.json())
+            .then(data => {
+                // Filter only featured products
+                const featured = data.filter(product => product.is_featured);
+                setFeaturedProducts(featured);
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.error("Error fetching products:", err);
+                setIsLoading(false);
+            });
+    }, []);
 
     return (
         <main className="bg-black text-white min-h-screen">
-            <Helmet>
-                <title>AcharyaWorks | Digital Products with Real Impact</title>
-                <meta name="description" content="AcharyaWorks builds scalable web apps and custom Django solutions. From Bihar to the world, we craft digital products like TechlancePrep and BiharSeva." />
-                <meta name="keywords" content="AcharyaWorks, web development Bihar, digital product studio, software agency Purnea, edtech solutions, techlanceprep, edumarks, biharseva, coding interview prep, school result system, volunteer platform" />
-            </Helmet>
+
 
             {/* 🔥 Hero Section */}
             <Hero />
@@ -59,14 +63,21 @@ const Home = () => {
                         </Link>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {featuredProducts.map((product) => (
-                            <ProductCard
-                                key={product.name}
-                                {...product}
-                            />
-                        ))}
-                    </div>
+                    {isLoading ? (
+                        <div className="flex flex-col items-center justify-center py-10 text-gray-500 gap-4">
+                            <div className="w-6 h-6 rounded-full border-2 border-gray-700 border-t-white animate-spin"></div>
+                            <span className="text-xs tracking-wide">Loading featured products...</span>
+                        </div>
+                    ) : (
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {featuredProducts.map((product) => (
+                                <ProductCard
+                                    key={product.id || product.name}
+                                    {...product}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 

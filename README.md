@@ -16,10 +16,10 @@
 
 ### 1. TechlancePrep
 
-🔗 https://techlanceprep.acharyaworks.in
+🔗 https://techlanceprep.in
 A premium interview preparation platform designed to help developers master technical rounds with curated, topic-wise coding challenges.
 
-* **Tech:** React, Django, PostgreSQL
+* **Tech:** Django, Tailwind CSS, PostgreSQL
 * **Status:** `Live`
 
 ---
@@ -28,8 +28,8 @@ A premium interview preparation platform designed to help developers master tech
 
 A streamlined school result management system that automates grade calculation and report generation, reducing manual errors for educational institutions.
 
-* **Tech:** Django, Tailwind CSS
-* **Status:** `In Development`
+* **Tech:** Django, Tailwind CSS, PostgreSQL
+* **Status:** `Live`
 
 ---
 
@@ -37,8 +37,8 @@ A streamlined school result management system that automates grade calculation a
 
 A social impact initiative allowing citizens to report civic issues and coordinate volunteer cleanup efforts across Bihar.
 
-* **Tech:** React, Python, Google Maps API
-* **Status:** `In Development`
+* **Tech:** React, Django Rest Framework, PostgreSQL
+* **Status:** `Live`
 
 ---
 
