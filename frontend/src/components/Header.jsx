@@ -53,13 +53,7 @@ const Header = () => {
                             </Link>
                         ))}
                         
-                        {/* CTA Button in Header */}
-                        <Link 
-                            to="/contact" 
-                            className="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors"
-                        >
-                            Work With Us
-                        </Link>
+
                     </div>
 
                     {/* MOBILE MENU BUTTON */}
