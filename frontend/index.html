@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="canonical" href="https://acharyaworks.in/" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     
@@ -12,21 +11,25 @@
     <title>AcharyaWorks | Web Development & Digital Products for Education & Social Impact</title>
 
     <meta name="description"
-        content="AcharyaWorks builds scalable web apps, Django backends & custom solutions for schools, NGOs & startups. TechlancePrep, EduMarks, BiharSeva. Affordable pricing from ₹12999. Bihar-based development agency.">
+        content="AcharyaWorks builds scalable web apps, Django backends & custom solutions for schools, NGOs & startups. TechlancePrep, EduMarks, BiharSeva. Affordable pricing from ₹2,999. Bihar-based development agency.">
 
     <meta name="keywords"
-        content="web development, django developer, school management system, interview prep platform, bihar developer, freelance developer, education app, ngo platform, custom web app, react developer, affordable web development">
+        content="web development, django developer, school management system, interview prep platform, bihar developer, freelance developer, education app, ngo platform, custom web app, react developer, affordable web development, acharyaworks">
 
+    <!-- Open Graph (Social SEO) -->
     <meta property="og:title" content="AcharyaWorks | Digital Products with Real Impact" />
     <meta property="og:description"
-        content="Building scalable web apps for education & social good. TechlancePrep, EduMarks, BiharSeva. From ₹12999." />
-    <meta property="og:image" content="/og-image.jpg" />
-    <meta property="og:url" content="https://acharyaworks.in" /> <meta property="og:type" content="website" />
+        content="Building scalable web apps for education & social good. TechlancePrep, EduMarks, BiharSeva. From ₹2,999." />
+    <meta property="og:image" content="https://acharyaworks.in/og-image.jpg" />
+    <meta property="og:url" content="https://acharyaworks.in/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="AcharyaWorks" />
 
+    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AcharyaWorks | Web Development Bihar" />
-    <meta name="twitter:description" content="Real products. Real impact. Web development from ₹12999." />
-    <meta name="twitter:image" content="/og-image.jpg" />
+    <meta name="twitter:title" content="AcharyaWorks | Web Development & Digital Products" />
+    <meta name="twitter:description" content="Real products. Real impact. Web development from ₹2,999." />
+    <meta name="twitter:image" content="https://acharyaworks.in/og-image.jpg" />
 
     <meta name="geo.region" content="IN-BR" />
     <meta name="geo.placename" content="Bihar" />
@@ -45,7 +48,7 @@
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#111827" />
 
-    <!-- Google Schema for Site Name in Search Results -->
+    <!-- Google Schema: WebSite for Site Name in Search Results -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -56,7 +59,7 @@
       }
     </script>
 
-    <!-- Google Schema for Organization & Founder Mapping -->
+    <!-- Google Schema: Organization & Founder -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -79,42 +82,55 @@
       }
     </script>
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000; /* Matching your dark theme intent */
-            color: #ffffff;
-        }
-    </style>
-    <!-- Google Schema for Site Navigation (Sitelinks Optimization) -->
+    <!-- Google Schema: Site Navigation (Sitelinks Optimization) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@graph": [
+        "@type": "ItemList",
+        "@id": "https://acharyaworks.in/#navigation",
+        "itemListElement": [
           {
-            "@type": "WebSite",
-            "@id": "https://acharyaworks.in/#website",
-            "url": "https://acharyaworks.in/",
-            "name": "AcharyaWorks"
+            "@type": "SiteNavigationElement",
+            "position": 1,
+            "name": "Home",
+            "description": "AcharyaWorks homepage - Digital Product Studio building scalable web apps.",
+            "url": "https://acharyaworks.in/"
           },
           {
             "@type": "SiteNavigationElement",
-            "@id": "https://acharyaworks.in/#navigation",
-            "name": ["Home", "Products", "Services", "Contact"],
-            "url": [
-              "https://acharyaworks.in/",
-              "https://acharyaworks.in/products",
-              "https://acharyaworks.in/services",
-              "https://acharyaworks.in/contact"
-            ]
+            "position": 2,
+            "name": "Products",
+            "description": "Explore our digital products - TechlancePrep, EduMarks, BiharSeva and more.",
+            "url": "https://acharyaworks.in/products"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 3,
+            "name": "Services",
+            "description": "Professional web development services starting from ₹2,999.",
+            "url": "https://acharyaworks.in/services"
+          },
+          {
+            "@type": "SiteNavigationElement",
+            "position": 4,
+            "name": "Contact",
+            "description": "Get in touch with AcharyaWorks for your next project.",
+            "url": "https://acharyaworks.in/contact"
           }
         ]
       }
     </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
-
